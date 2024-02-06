@@ -26,12 +26,37 @@ select first_name, salary from employees
 where salary > (select salary from employees where first_name='kelly')
 order by 2;
 
+/* select 문 내부에 들어가는 서브쿼리는 반드시 괄호를 기재한다.
+ * 
+ * 서브쿼리와 같이 사용하는 연산자
+ * 	단일행 서브쿼리 : =, >, <
+ *  다중행 서브쿼리 : in, =any, >=any, >any, =all, >=all, >all
+ * 
+ * 	any - 여러개 중 하나
+ *  all - 모두
+ * 
+ * 
+ */
 
 #세사람의 peter중 아무나 보다 급여가 더 높은 사원을 조회하시오.
 -- 세사람의 peter 급여중 최소값 보다 크면 OK 2500
 select first_name, salary from employees
 where salary >any (select salary from employees where first_name='peter')
 order by salary desc;
+
+
+#세사람의 peter 모두 보다 급여가 더 높은 사원을 조회하시오.
+-- 세사람의 peter 급여중 최대값 보다 크면 OK  10000
+select first_name, salary from employees
+where salary >all (select salary from employees where first_name='peter')
+order by salary asc;
+
+
+
+
+
+
+
 
 
 
