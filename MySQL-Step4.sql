@@ -87,6 +87,75 @@ inner join locations L on L.location_id = D.location_id
 inner join countries C on C.country_id = L.country_id;
 
 
+/*
+	1. 기준테이블 left outer join 조인테이블
+		1) left의 의미는 왼쪽테이블을 기준 테이블로 지정한다는 의미이다.
+		2) 조인된 테이블에 데이터가 없어도 기준테이블의 데이터는 모두 출력된다.
+		3) 조인된 테이블에 데이터가 없으면 null을 표시한다.
+		4) outer 키워드를 생략하고 left join 으로 사용할 수 있다.	
+
+	2. 조인테이블 right outer join 기준테이블
+		1) right의 의미는 오른쪽 테이블을 기준 테이블로 지정한다는 의미이다.
+		2) 조인된 테이블에 데이터가 없어도 기준테이블의 데이터는 모두 출력된다.
+		3) 조인된 테이블에 데이터가 없으면 null을 표시한다.
+		4) outer 키워드를 생략하고 right join 으로 사용할 수 있다.
+*/
+
+
+select count(*), count(employee_id) from employees;
+
+# employees 테이블에 존재하는 107개의 모든 레코드에 대하여 departments 테이블과 left outer join하여 
+# 사원이름, 부서이름, 부서코드를 조회하시오.
+select E.first_name, D.department_name, D.department_id 
+from employees E
+inner join departments D on E.department_id = D.department_id;
+
+select count(*) from departments;
+# employees 테이블에 대하여 27개의 레코드를 가지고 있는 departments 테이블과 rigth outer join하여 
+# 사원이름, 부서이름, 부서코드를 조회하시오.
+
+select E.first_name, D.department_name, D.department_id 
+from employees E 
+right outer join departments D on E.department_id = D.department_id;
+
+# 부서이름, 부서장이름을 조회하되 부서장이 없는 부서도 조회하시오.
+select D.department_name '부서이름', ifnull(E.first_name,'부서장없음') '부서장명'
+from departments D
+left outer join employees E on D.manager_id = E.employee_id; 
+
+
+select * from departments;
+select * from employees;
+
+# 사원명, 상사명을 조회하시오
+select e1.first_name, e2.first_name
+from employees e1
+inner join employees e2 on e1.manager_id = e2.employee_id;
+
+
+#사원의 입장에서 사원명, 사원급여, 상사명, 상사급여를 조회하되 사원의 급여가 상사보다 많은 경우에만 출력하시오.
+select e1.first_name, e1.salary, e2.first_name, e2.salary
+from employees e1
+inner join employees e2 on e1.manager_id = e2.employee_id
+where e1.salary > e2.salary;
+
+
+#employees에서 사장을 포함하여 사원명, 사원급여, 상사명, 상사급여를 조회하시오.
+#단, 사장은 상사가 없고, 급여도 없는 사람이다.
+select e1.first_name, e1.salary, ifnull(e2.first_name,'사장'), ifnull(e2.salary, '보안')
+from employees e1
+left outer join employees e2 on e1.manager_id = e2.employee_id
+
+
+
+
+
+
+
+
+
+
+
 
 
 
