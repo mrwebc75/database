@@ -146,15 +146,15 @@ select e1.first_name, e1.salary, ifnull(e2.first_name,'사장'), ifnull(e2.salar
 from employees e1
 left outer join employees e2 on e1.manager_id = e2.employee_id
 
+# london 도시에 근무하는 사원명 부서명 도시명 조회하시오.
+select first_name, department_name, city  from employees e
+inner join departments d on e.department_id = d.department_id 
+inner join locations L on L.location_id = d.location_id 
+where L.city = 'London';
 
 
-
-
-
-
-
-
-
+desc departments ;
+desc locations ;
 
 
 
