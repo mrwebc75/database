@@ -90,5 +90,3 @@ where dept_id = (select * from (select dept_id from emp_copy where name = 'ë°•ì‚
 
 
 
-
-
