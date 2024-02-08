@@ -1,5 +1,9 @@
 use empdb;
 
+-- 목업데이터 생성
+insert into member (select * from member);
+select * from member;
+
 /* member 테이블 생성
 	아이디 varchar(20)
 	이름 varchar(10) 
@@ -64,7 +68,7 @@ phone from member where phone like '%1234';
 		
 		drop database DB명;
 		drop table 테이블명;
-		drop 컬럼명;
+		alter table 테이블명 drop 컬럼명;
 
 */
 
@@ -89,7 +93,17 @@ insert into member (memberid, name, pw, phone, address, email, regtime) values
 
 #member 테이블에서 address 컬럼의 이름과 타입의 길이를 addr varchar(100)으로 변경하시오.
 alter table member change address addr varchar(100);
-alter table member modify addr varchar(10);
+alter table member modify addr varchar(10); -- 에러발생(들어있는 데이터의 길이보다 짧게 설정되어서...)
+
+
+#member 테이블에서 addr 컬럼을 삭제후 조회하시오.(만약 이미 데이터가 들어있는 경우 같이 삭제)
+alter table member drop addr;
+
+
+#member 테이블을 완전히 삭제후 테이블 목록을 조회하시오.
+drop table member;
+drop table if exists member; -- 권장
+
 
 desc member;
 
